@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.Json;
+using TrisGame.Views;
 
 namespace TrisGame.Model
 {
@@ -10,12 +12,14 @@ namespace TrisGame.Model
         O
     }
 
-    public class GameModel : Observable<Message>
+    public class GameModel 
     {
         private Player[,] _board;
+        private List<VirtualView> _views;
 
         public GameModel()
         {
+            _views = new List<VirtualView>();
             _board = new Player[3, 3];
             for (int i = 0; i < _board.GetLength(0); i++)
             {
@@ -41,6 +45,19 @@ namespace TrisGame.Model
                 Type = Type.MODEL_UPDATE,
                 Body = JsonSerializer.Serialize(new MoveUpdate {Move = new int[] {row, col}, Player = (int) player})
             });
+        }
+
+        private void Notify(Message msg)
+        {
+            foreach (var view in _views)
+            {
+                view.SendMessage(msg);
+            }
+        }
+
+        public void AddView(VirtualView view)
+        {
+            _views.Add(view);
         }
 
         public Player GetPlayer(int row, int col)

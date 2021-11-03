@@ -6,7 +6,7 @@ using TrisGame.Controllers;
 
 namespace TrisGame.Views
 {
-    public class VirtualView : IObserver<Message>
+    public class VirtualView 
     {
         private Socket _socket;
         private StreamReader _reader;

@@ -17,7 +17,7 @@ namespace Client
         {
             var view = new ConsoleView();
 
-            var ipe = new IPEndPoint(IPAddress.Parse("192.168.1.52"), 8080);
+            var ipe = new IPEndPoint(IPAddress.Parse("172.17.2.23"), 8080);
             var socket = new Socket(ipe.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
             socket.Connect(ipe);

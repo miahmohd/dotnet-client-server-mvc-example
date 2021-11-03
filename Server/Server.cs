@@ -18,10 +18,10 @@ namespace TrisGame
             var model = new GameModel();
             var controller = new GameController(model);
 
-            var ipe = new IPEndPoint(IPAddress.Parse("192.168.1.52"), 8080);
+            var ipe = new IPEndPoint(IPAddress.Parse("172.17.2.23"), 8080);
             var listener = new Socket(ipe.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             listener.Bind(ipe);
-            listener.Listen();
+            listener.Listen(10);
             Console.WriteLine("Server listening on port 8080");
 
             var tasks = new Task[2];
@@ -32,7 +32,7 @@ namespace TrisGame
                 Console.WriteLine($"Player {i} connected");
                 
                 var view = new VirtualView(socket, controller);
-                model.AddObserver(view);
+                model.AddView(view);
                 controller.AddView(view);
                 tasks[i] = Task.Run(view.Run);
             }
