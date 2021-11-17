@@ -18,7 +18,8 @@ namespace TrisGame
             var model = new GameModel();
             var controller = new GameController(model);
 
-            var ipe = new IPEndPoint(IPAddress.Parse("172.17.2.23"), 8080);
+            //var ipe = new IPEndPoint(IPAddress.Parse("172.17.2.23"), 8080);
+            var ipe = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8080);
             var listener = new Socket(ipe.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             listener.Bind(ipe);
             listener.Listen(10);
